@@ -36,37 +36,36 @@ const useResource = (baseUrl) => {
 const App = () => {
   const content = useField('text')
   const name = useField('text')
-  const number = useField('text')
-
-  const [notes, noteService] = useResource('http://localhost:3005/notes')
+  const discord = useField('text')
+  const [tasks, taskService] = useResource('http://localhost:3005/tasks')
   const [persons, personService] = useResource('http://localhost:3005/persons')
 
-  const handleNoteSubmit = (event) => {
+  const handleTaskSubmit = (event) => {
     event.preventDefault()
-    noteService.create({ content: content.value })
+    taskService.create({ content: content.value })
   }
  
   const handlePersonSubmit = (event) => {
     event.preventDefault()
-    personService.create({ name: name.value, number: number.value})
+    personService.create({ name: name.value, discord: discord.value})
   }
 
   return (
     <div>
-      <h2>notes</h2>
-      <form onSubmit={handleNoteSubmit}>
+      <h2>tasks</h2>
+      <form onSubmit={handleTaskSubmit}>
         <input {...content} />
         <button>create</button>
       </form>
-      {notes.map(n => <p key={n.id}>{n.content}</p>)}
+      {tasks.map(t => <p key={t.id}>{t.content}</p>)}
 
       <h2>persons</h2>
       <form onSubmit={handlePersonSubmit}>
         name <input {...name} /> <br/>
-        number <input {...number} />
+        discord handle <input {...discord} />
         <button>create</button>
       </form>
-      {persons.map(n => <p key={n.id}>{n.name} {n.number}</p>)}
+      {persons.map(p => <p key={p.id}>{p.name} {p.discord}</p>)}
     </div>
   )
 }
