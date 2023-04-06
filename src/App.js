@@ -36,7 +36,7 @@ const useResource = (baseUrl) => {
 const App = () => {
   const content = useField('text')
   const name = useField('text')
-  const discord = useField('text')
+  const email = useField('text')
   const [tasks, taskService] = useResource('http://localhost:3005/tasks')
   const [persons, personService] = useResource('http://localhost:3005/persons')
 
@@ -47,7 +47,7 @@ const App = () => {
  
   const handlePersonSubmit = (event) => {
     event.preventDefault()
-    personService.create({ name: name.value, discord: discord.value})
+    personService.create({ name: name.value, email: email.value})
   }
 
   return (
@@ -62,10 +62,10 @@ const App = () => {
       <h2>persons</h2>
       <form onSubmit={handlePersonSubmit}>
         name <input {...name} /> <br/>
-        discord handle <input {...discord} />
+        email <input {...email} />
         <button>create</button>
       </form>
-      {persons.map(p => <p key={p.id}>{p.name} {p.discord}</p>)}
+      {persons.map(p => <p key={p.id}>{p.name} {p.email}</p>)}
     </div>
   )
 }
